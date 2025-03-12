@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>השוואת מחירים לפסלים - טכנודע</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e6f7ff;
+        }
+        .supplier-header {
+            background-color: #004d99;
+        }
+        .best-price {
+            background-color: #dff0d8;
+            font-weight: bold;
+            color: #3c763d;
+        }
+        .empty-cell {
+            background-color: #f9f9f9;
+            color: #999;
+            font-style: italic;
+        }
+        .price {
+            font-weight: bold;
+            direction: ltr;
+            display: inline-block;
+        }
+        .notes {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff9e6;
+            border-radius: 5px;
+            border-right: 4px solid #ffcc00;
+        }
+        .price-details {
+            font-size: 0.9em;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .add-supplier-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .add-supplier-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-wrapper">
+            <h1>השוואת מחירים - פסל אסטרונאוט <span class="title-icon">🧑‍🚀</span> לכיכר מחוץ לטכנודע</h1>
+        </div>
+        
+        <table id="priceTable">
+            <thead>
+                <tr>
+                    <th>גודל (מטרים)</th>
+                    <th>ספק ישראלי - ליאור זדה</th>
+                    <th>ספק ארגנטינאי</th>
+                    <th>ספק סיני</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10 מטר</td>
+                    <td><span class="price">₪1,186,136</span></td>
+                    <td class="empty-cell">אין נתונים</td>
+                    <td class="empty-cell">טרם התקבל</td>
+                </tr>
+                <tr>
+                    <td>12 מטר</td>
+                    <td><span class="price">₪1,421,546</span></td>
+                    <td class="empty-cell">אין נתונים</td>
+                    <td class="empty-cell">טרם התקבל</td>
+                </tr>
+                <tr>
+                    <td>15 מטר</td>
+                    <td><span class="price">₪1,872,660</span></td>
+                    <td>
+                        <div>שיש לבן איכות A:</div>
+                        <span class="price">₪3,131,492</span>
+                        <div>שיש לבן איכות B:</div>
+                        <span class="price">₪2,395,120</span>
+                    </td>
+                    <td class="empty-cell">טרם התקבל</td>
+                </tr>
+                <tr>
+                    <td>20 מטר</td>
+                    <td class="empty-cell">לא קיים</td>
+                    <td>
+                        <div>שיש לבן איכות A:</div>
+                        <span class="price">₪5,229,224</span>
+                        <div>שיש לבן איכות B:</div>
+                        <span class="price">₪3,799,432</span>
+                    </td>
+                    <td class="empty-cell">טרם התקבל</td>
+                </tr>
+            </tbody>
+        </table>
+        
+                    <div class="notes">
+            <strong>הערות:</strong>
+            <ul>
+                <li>מחירי הספק הארגנטינאי הומרו מדולר לשקל לפי שער חליפין של 3.64 ש"ח לדולר</li>
+                <li>לפסל 15 מטר מהספק הארגנטינאי: 15 חלקים, 320 מ"ק, 500,000 ק"ג</li>
+                <li>לפסל 20 מטר מהספק הארגנטינאי: 32 חלקים, 730 מ"ק, 1,200,000 ק"ג</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function addSupplierData() {
+            const supplier = prompt("בחר ספק לעדכון (1=ארגנטינאי, 2=סיני):");
+            if (!supplier || (supplier !== "1" && supplier !== "2")) {
+                alert("נא לבחור ספק תקין.");
+                return;
+            }
+            
+            const supplierIndex = parseInt(supplier) + 1; // +1 because first column is size
+            const supplierName = supplierIndex === 2 ? "ספק ארגנטינאי" : "ספק סיני";
+            
+            const sizes = ["10", "12", "15"];
+            
+            for (let i = 0; i < sizes.length; i++) {
+                const price = prompt(`הכנס מחיר עבור פסל בגודל ${sizes[i]} מטר (${supplierName}):`);
+                
+                if (price && !isNaN(price.replace(/,/g, ""))) {
+                    // Format price with commas
+                    const formattedPrice = new Intl.NumberFormat('he-IL').format(price.replace(/,/g, ""));
+                    
+                    // Update the table cell
+                    const table = document.getElementById("priceTable");
+                    table.rows[i+1].cells[supplierIndex].innerHTML = `<span class="price">₪${formattedPrice}</span>`;
+                    table.rows[i+1].cells[supplierIndex].className = ""; // Remove empty-cell class
+                    
+                    // Compare prices and highlight the best one
+                    comparePrices();
+                }
+            }
+        }
+        
+        function comparePrices() {
+            const table = document.getElementById("priceTable");
+            
+            // For each row (size)
+            for (let i = 1; i < table.rows.length; i++) {
+                const row = table.rows[i];
+                let bestPrice = Infinity;
+                let bestPriceIndex = -1;
+                
+                // Check all suppliers
+                for (let j = 1; j < row.cells.length; j++) {
+                    const cell = row.cells[j];
+                    if (!cell.classList.contains("empty-cell")) {
+                        const priceText = cell.querySelector(".price").textContent;
+                        const price = parseFloat(priceText.replace(/[₪,]/g, ""));
+                        
+                        if (price < bestPrice) {
+                            bestPrice = price;
+                            bestPriceIndex = j;
+                        }
+                    }
+                }
+                
+                // Reset all classes first
+                for (let j = 1; j < row.cells.length; j++) {
+                    if (!row.cells[j].classList.contains("empty-cell")) {
+                        row.cells[j].classList.remove("best-price");
+                    }
+                }
+                
+                // Highlight the best price
+                if (bestPriceIndex > 0) {
+                    row.cells[bestPriceIndex].classList.add("best-price");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
